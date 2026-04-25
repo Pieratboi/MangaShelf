@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MangaShelf.Domain.Entities;
 
 namespace MangaShelf.Api.Controllers;
 
@@ -9,10 +10,10 @@ public class MangaController : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
-        var manga = new[]
+        var manga = new List<Manga>
         {
-          new { Id = 1, Title = "Berserk", Status = "Reading" },
-          new {Id = 2, Title = "Vagabond", Status = "PlanToRead" }  
+          new Manga("Berserk", "Reading"),
+          new Manga("Vagabond", "PlanToRead")
         };
 
         return Ok(manga);
