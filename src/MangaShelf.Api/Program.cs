@@ -1,3 +1,5 @@
+using MangaShelf.Application.Manga.GetAll;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +10,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<GetAllMangaUseCase>();
 
 var app = builder.Build();
 

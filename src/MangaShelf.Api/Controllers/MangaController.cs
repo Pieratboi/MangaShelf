@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using MangaShelf.Domain.Entities;
+using MangaShelf.Application.Manga.GetAll;
 
 namespace MangaShelf.Api.Controllers;
 
@@ -7,14 +7,17 @@ namespace MangaShelf.Api.Controllers;
 [Route("api/manga")]
 public class MangaController : ControllerBase
 {
+    private readonly GetAllMangaUseCase _getAllMangaUseCase;
+
+    public MangaController(GetAllMangaUseCase getAllMangaUseCase)
+    {
+        _getAllMangaUseCase = getAllMangaUseCase;
+    }
+
     [HttpGet]
     public IActionResult GetAll()
     {
-        var manga = new List<Manga>
-        {
-          new Manga("Berserk", "Reading"),
-          new Manga("Vagabond", "PlanToRead")
-        };
+        var manga = _getAllMangaUseCase.Execute();
 
         return Ok(manga);
     }
