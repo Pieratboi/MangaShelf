@@ -21,7 +21,7 @@ public class GetAllMangaUseCase
         {
             Id = m.Id,
             Title = m.Title,
-            Status = m.Status
+            Status = m.Status.ToString()
         }).ToList();
     }
 }
