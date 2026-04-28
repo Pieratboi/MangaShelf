@@ -8,8 +8,9 @@ public class Manga
     public string Title {get; private set;}
     public string Status {get; private set;}
 
-    public Manga(string title, string status)
+    public Manga(int id, string title, string status)
     {
+        Id = id;
         Title = title;
         Status = status;
     }

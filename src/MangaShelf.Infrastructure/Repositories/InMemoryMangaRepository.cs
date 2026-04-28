@@ -9,9 +9,9 @@ public class InMemoryMangaRepository : IMangaRepository
     {
         return new List<Manga>
         {
-            new("Berserk", "Reading"),
-            new("Vagabond", "PlanToRead"),
-            new("Vinland Saga", "Completed")
+            new(1,"Berserk", "Reading"),
+            new(2,"Vagabond", "PlanToRead"),
+            new(3,"Vinland Saga", "Completed")
         };
     }
 }
