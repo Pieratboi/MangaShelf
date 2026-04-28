@@ -1,18 +1,21 @@
 using System.Data.Common;
 using System.Reflection;
-using MangaShelf.Domain.Entities;
+using MangaShelf.Application.Manga;
 
 namespace MangaShelf.Application.Manga.GetAll;
 
 public class GetAllMangaUseCase
 {
+    private readonly IMangaRepository _mangaRepository;
+
+    public GetAllMangaUseCase(IMangaRepository mangaRepository)
+    {
+        _mangaRepository = mangaRepository;
+    }
+
     public List<MangaResponse> Execute()
     {
-        var manga = new List<Domain.Entities.Manga>
-        {
-            new("Berserk","Reading"),
-            new("Vagabond", "PlanToRead")
-        };
+        var manga = _mangaRepository.GetAll();
 
         return manga.Select(m => new MangaResponse
         {
