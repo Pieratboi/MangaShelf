@@ -1,5 +1,6 @@
 using MangaShelf.Api.Responses;
 using MangaShelf.Application.Common.Exceptions;
+using MangaShelf.Domain.Common.Exceptions;
 
 namespace MangaShelf.Api.Middleware;
 
@@ -22,6 +23,14 @@ public class GlobalExceptionHandlingMiddleware
             await _next(context);
         }
         catch (ApplicationValidationException exception)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+
+            await context.Response.WriteAsJsonAsync(
+                new ErrorResponse(exception.Message)
+            );
+        }
+        catch (DomainValidationException exception)
         {
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
 

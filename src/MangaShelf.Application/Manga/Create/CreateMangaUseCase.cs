@@ -19,7 +19,8 @@ public class CreateMangaUseCase
         {
             throw new ApplicationValidationException("Title is required.");
         }
-        if(!Enum.TryParse<MangaStatus>(request.Status, ignoreCase: true, out var status))
+        if(!Enum.TryParse<MangaStatus>(request.Status, ignoreCase: true, out var status) 
+        || !Enum.IsDefined(status))
         {
             throw new ApplicationValidationException("Invalid Manga Status");
         }
