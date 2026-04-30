@@ -1,5 +1,6 @@
 using MangaShelf.Domain.Entities;
 using MangaShelf.Domain.Enums;
+using MangaShelf.Application.Common.Exceptions;
 
 namespace MangaShelf.Application.Manga.Create;
 
@@ -16,11 +17,11 @@ public class CreateMangaUseCase
     {
         if (string.IsNullOrWhiteSpace(request.Title))
         {
-            throw new ArgumentException("Title is required.");
+            throw new ApplicationValidationException("Title is required.");
         }
         if(!Enum.TryParse<MangaStatus>(request.Status, ignoreCase: true, out var status))
         {
-            throw new ArgumentException("Invalid Manga Status");
+            throw new ApplicationValidationException("Invalid Manga Status");
         }
 
         var existingManga = _mangaRepository.GetAll();
