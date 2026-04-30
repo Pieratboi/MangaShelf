@@ -25,15 +25,8 @@ public class CreateMangaUseCase
             throw new ApplicationValidationException("Invalid Manga Status");
         }
 
-        var existingManga = _mangaRepository.GetAll();
-
-        var nextId = existingManga.Count == 0
-            ? 1
-            : existingManga.Max(m => m.Id) + 1;
-
         var manga = new Domain.Entities.Manga
         (
-            nextId,
             request.Title,
             status
         );

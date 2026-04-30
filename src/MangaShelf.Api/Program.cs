@@ -1,9 +1,11 @@
+using Microsoft.EntityFrameworkCore;
 using MangaShelf.Api.Middleware;
 using MangaShelf.Application.Manga.GetAll;
 using MangaShelf.Application.Manga;
 using MangaShelf.Application.Manga.GetById;
 using MangaShelf.Application.Manga.Create;
 using MangaShelf.Infrastructure.Repositories;
+using MangaShelf.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +21,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<GetAllMangaUseCase>();
 builder.Services.AddScoped<GetMangaByIdUseCase>();
 builder.Services.AddScoped<CreateMangaUseCase>();
-builder.Services.AddScoped<IMangaRepository, InMemoryMangaRepository>();
+
+builder.Services.AddScoped<IMangaRepository, EfCoreMangaRepository>();
+
+builder.Services.AddDbContext<MangaShelfDbContext>(options =>
+{
+    options.UseSqlite(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    );
+});
 
 var app = builder.Build();
 
