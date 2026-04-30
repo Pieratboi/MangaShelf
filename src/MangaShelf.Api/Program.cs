@@ -2,6 +2,7 @@ using MangaShelf.Application.Manga.GetAll;
 using MangaShelf.Application.Manga;
 using MangaShelf.Infrastructure.Repositories;
 using MangaShelf.Application.Manga.GetById;
+using MangaShelf.Application.Manga.Create;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<GetAllMangaUseCase>();
 builder.Services.AddScoped<GetMangaByIdUseCase>();
+builder.Services.AddScoped<CreateMangaUseCase>();
 builder.Services.AddScoped<IMangaRepository, InMemoryMangaRepository>();
 
 var app = builder.Build();

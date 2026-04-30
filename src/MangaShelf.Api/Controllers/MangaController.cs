@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MangaShelf.Application.Manga.GetAll;
 using MangaShelf.Application.Manga.GetById;
+using MangaShelf.Application.Manga.Create;
 
 namespace MangaShelf.Api.Controllers;
 
@@ -10,12 +11,14 @@ public class MangaController : ControllerBase
 {
     private readonly GetAllMangaUseCase _getAllMangaUseCase;
     private readonly GetMangaByIdUseCase _getMangaByIdUseCase;
+    private readonly CreateMangaUseCase _createMangaUseCase;
 
     public MangaController(GetAllMangaUseCase getAllMangaUseCase, 
-    GetMangaByIdUseCase getMangaByIdUseCase)
+    GetMangaByIdUseCase getMangaByIdUseCase, CreateMangaUseCase createMangaUseCase)
     {
         _getAllMangaUseCase = getAllMangaUseCase;
         _getMangaByIdUseCase = getMangaByIdUseCase;
+        _createMangaUseCase = createMangaUseCase;
     }
 
     [HttpGet]
@@ -37,5 +40,17 @@ public class MangaController : ControllerBase
         }
 
         return Ok(manga);
+    }
+
+    [HttpPost]
+    public IActionResult Create(CreateMangaRequest request)
+    {
+        var manga = _createMangaUseCase.Execute(request);
+
+        return CreatedAtAction(
+            nameof(GetById),
+            new { id = manga.Id },
+            manga
+        );
     }
 }
