@@ -13,9 +13,9 @@ public class GetAllMangaUseCase
         _mangaRepository = mangaRepository;
     }
 
-    public List<MangaResponse> Execute()
+    public async Task<List<MangaResponse>> ExecuteAsync()
     {
-        var manga = _mangaRepository.GetAll();
+        var manga = await _mangaRepository.GetAllAsync();
 
         return manga.Select(m => new MangaResponse
         {

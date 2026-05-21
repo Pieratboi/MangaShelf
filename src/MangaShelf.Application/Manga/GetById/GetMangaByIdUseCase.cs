@@ -11,9 +11,9 @@ public class GetMangaByIdUseCase
         _mangaRepository = mangaRepository;
     }
 
-    public MangaDetailsResponse? Execute(int id)
+    public async Task<MangaDetailsResponse?> ExecuteAsync(int id)
     {
-        var manga = _mangaRepository.GetById(id);
+        var manga = await _mangaRepository.GetByIdAsync(id);
 
         if(manga is null)
         {

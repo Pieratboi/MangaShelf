@@ -22,17 +22,17 @@ public class MangaController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        var manga = _getAllMangaUseCase.Execute();
+        var manga = await _getAllMangaUseCase.ExecuteAsync();
 
         return Ok(manga);
     }
 
     [HttpGet("{id:int}")]
-    public IActionResult GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        var manga = _getMangaByIdUseCase.Execute(id);
+        var manga = await _getMangaByIdUseCase.ExecuteAsync(id);
 
         if(manga is null)
         {
@@ -43,9 +43,9 @@ public class MangaController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(CreateMangaRequest request)
+    public async Task<IActionResult> Create([FromBody] CreateMangaRequest request)
     {
-        var manga = _createMangaUseCase.Execute(request);
+        var manga = await _createMangaUseCase.ExecuteAsync(request);
 
         return CreatedAtAction(
             nameof(GetById),

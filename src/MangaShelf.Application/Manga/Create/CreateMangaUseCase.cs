@@ -13,7 +13,7 @@ public class CreateMangaUseCase
         _mangaRepository = mangaRepository;
     }
 
-    public CreateMangaResponse Execute(CreateMangaRequest request)
+    public async Task<CreateMangaResponse> ExecuteAsync(CreateMangaRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.Title))
         {
@@ -31,7 +31,7 @@ public class CreateMangaUseCase
             status
         );
 
-        var createdManga = _mangaRepository.Create(manga);
+        var createdManga = await _mangaRepository.CreateAsync(manga);
 
         return new CreateMangaResponse
         {

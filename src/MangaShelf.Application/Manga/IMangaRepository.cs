@@ -1,12 +1,12 @@
-using MangaShelf.Domain.Entities;
+using MangaEntity = MangaShelf.Domain.Entities.Manga;
 
 namespace MangaShelf.Application.Manga;
 
 public interface IMangaRepository
 {
-    List<Domain.Entities.Manga> GetAll();
+    Task<List<MangaEntity>> GetAllAsync();
 
-    Domain.Entities.Manga? GetById(int id);
+    Task<MangaEntity?> GetByIdAsync(int id);
 
-    Domain.Entities.Manga Create(Domain.Entities.Manga manga);
+    Task<MangaEntity> CreateAsync(MangaEntity manga);
 }

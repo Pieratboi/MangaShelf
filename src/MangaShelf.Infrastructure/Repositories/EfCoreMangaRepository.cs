@@ -14,25 +14,26 @@ public class EfCoreMangaRepository : IMangaRepository
         _dbContext = dbContext;
     }
 
-    public List<Manga> GetAll()
+    public async Task<List<Manga>> GetAllAsync()
     {
-        return _dbContext.Manga
+        return await _dbContext.Manga
             .AsNoTracking()
             .OrderBy(m => m.Id)
-            .ToList();
+            .ToListAsync();
     }
 
-    public Manga? GetById(int id)
+    public async Task<Manga?> GetByIdAsync(int id)
     {
-        return _dbContext.Manga
+        return await _dbContext.Manga
             .AsNoTracking()
-            .FirstOrDefault(m => m.Id == id);
+            .FirstOrDefaultAsync(m => m.Id == id);
     }
 
-    public Manga Create(Manga manga)
+    public async Task<Manga> CreateAsync(Manga manga)
     {
         _dbContext.Manga.Add(manga);
-        _dbContext.SaveChanges();
+
+        await _dbContext.SaveChangesAsync();
 
         return manga;
     }

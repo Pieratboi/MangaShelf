@@ -13,20 +13,22 @@ public class InMemoryMangaRepository : IMangaRepository
         new(3,"Vinland Saga", MangaStatus.Completed)
     };
 
-    public List<Manga> GetAll()
+    public Task<List<Manga>> GetAllAsync()
     {
-        return _manga;
+        return Task.FromResult(_manga.ToList());
     }
 
-    public Manga? GetById(int id)
+    public Task<Manga?> GetByIdAsync(int id)
     {
-        return _manga.FirstOrDefault(m => m.Id == id);
+        var manga = _manga.FirstOrDefault(m => m.Id == id);
+
+        return Task.FromResult(manga);
     }
 
-    public Manga Create(Manga manga)
+    public Task<Manga> CreateAsync(Manga manga)
     {
         _manga.Add(manga);
 
-        return manga;
+        return Task.FromResult(manga);
     }
 }
