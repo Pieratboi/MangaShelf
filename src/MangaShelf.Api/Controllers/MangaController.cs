@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MangaShelf.Application.Manga.GetAll;
 using MangaShelf.Application.Manga.GetById;
 using MangaShelf.Application.Manga.Create;
+using MangaShelf.Application.Manga.UpdateStatus;
 
 namespace MangaShelf.Api.Controllers;
 
@@ -12,13 +13,16 @@ public class MangaController : ControllerBase
     private readonly GetAllMangaUseCase _getAllMangaUseCase;
     private readonly GetMangaByIdUseCase _getMangaByIdUseCase;
     private readonly CreateMangaUseCase _createMangaUseCase;
+    private readonly UpdateMangaUseCase _updateMangaUseCase;
 
     public MangaController(GetAllMangaUseCase getAllMangaUseCase, 
-    GetMangaByIdUseCase getMangaByIdUseCase, CreateMangaUseCase createMangaUseCase)
+    GetMangaByIdUseCase getMangaByIdUseCase, CreateMangaUseCase createMangaUseCase,
+    UpdateMangaUseCase updateMangaUseCase)
     {
         _getAllMangaUseCase = getAllMangaUseCase;
         _getMangaByIdUseCase = getMangaByIdUseCase;
         _createMangaUseCase = createMangaUseCase;
+        _updateMangaUseCase = updateMangaUseCase;
     }
 
     [HttpGet]
@@ -52,5 +56,18 @@ public class MangaController : ControllerBase
             new { id = manga.Id },
             manga
         );
+    }
+
+    [HttpPatch("{id:int}/status")]
+    public async Task<IActionResult> UpdateStatus(int id, [FromBody] UpdateMangaStatusRequest request)
+    {
+        var manga = await _updateMangaUseCase.ExecuteAsync(id, request);
+
+        if (manga is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(manga);
     }
 }

@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using MangaShelf.Api.Middleware;
-using MangaShelf.Application.Manga.GetAll;
 using MangaShelf.Application.Manga;
+using MangaShelf.Application.Manga.GetAll;
 using MangaShelf.Application.Manga.GetById;
 using MangaShelf.Application.Manga.Create;
+using MangaShelf.Application.Manga.UpdateStatus;
 using MangaShelf.Infrastructure.Repositories;
 using MangaShelf.Infrastructure.Persistence;
 
@@ -21,6 +22,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<GetAllMangaUseCase>();
 builder.Services.AddScoped<GetMangaByIdUseCase>();
 builder.Services.AddScoped<CreateMangaUseCase>();
+builder.Services.AddScoped<UpdateMangaUseCase>();
 
 builder.Services.AddScoped<IMangaRepository, EfCoreMangaRepository>();
 

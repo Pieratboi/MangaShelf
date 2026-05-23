@@ -8,5 +8,9 @@ public interface IMangaRepository
 
     Task<MangaEntity?> GetByIdAsync(int id);
 
+    Task<MangaEntity?> GetByIdForUpdateAsync(int id);
+
     Task<MangaEntity> CreateAsync(MangaEntity manga);
+
+    Task SaveChangesAsync();
 }

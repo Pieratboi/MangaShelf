@@ -25,10 +25,22 @@ public class InMemoryMangaRepository : IMangaRepository
         return Task.FromResult(manga);
     }
 
+    public Task<Manga?> GetByIdForUpdateAsync(int id)
+    {
+        var manga = _manga.FirstOrDefault(m => m.Id == id);
+
+        return Task.FromResult(manga);
+    }
+
     public Task<Manga> CreateAsync(Manga manga)
     {
         _manga.Add(manga);
 
         return Task.FromResult(manga);
+    }
+
+    public Task SaveChangesAsync()
+    {
+        return Task.CompletedTask;
     }
 }

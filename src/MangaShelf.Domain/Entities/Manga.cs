@@ -51,4 +51,9 @@ public class Manga
 
         Status = status;
     }
+
+    public void ChangeStatus(MangaStatus status)
+    {
+        SetStatus(status);
+    }
 }

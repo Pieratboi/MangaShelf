@@ -29,6 +29,12 @@ public class EfCoreMangaRepository : IMangaRepository
             .FirstOrDefaultAsync(m => m.Id == id);
     }
 
+    public async Task<Manga?> GetByIdForUpdateAsync(int id)
+    {
+        return await _dbContext.Manga
+            .FirstOrDefaultAsync(m => m.Id == id);
+    }
+
     public async Task<Manga> CreateAsync(Manga manga)
     {
         _dbContext.Manga.Add(manga);
@@ -36,5 +42,10 @@ public class EfCoreMangaRepository : IMangaRepository
         await _dbContext.SaveChangesAsync();
 
         return manga;
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await _dbContext.SaveChangesAsync();
     }
 }
