@@ -3,11 +3,11 @@ using MangaShelf.Domain.Enums;
 
 namespace MangaShelf.Application.Manga.UpdateStatus;
 
-public class UpdateMangaUseCase
+public class UpdateMangaStatusUseCase
 {
     private readonly IMangaRepository _mangaRepository;
 
-    public UpdateMangaUseCase(IMangaRepository mangaRepository)
+    public UpdateMangaStatusUseCase(IMangaRepository mangaRepository)
     {
         _mangaRepository = mangaRepository;
     }

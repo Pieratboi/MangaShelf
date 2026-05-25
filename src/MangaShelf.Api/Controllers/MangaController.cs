@@ -14,12 +14,12 @@ public class MangaController : ControllerBase
     private readonly GetAllMangaUseCase _getAllMangaUseCase;
     private readonly GetMangaByIdUseCase _getMangaByIdUseCase;
     private readonly CreateMangaUseCase _createMangaUseCase;
-    private readonly UpdateMangaUseCase _updateMangaUseCase;
+    private readonly UpdateMangaStatusUseCase _updateMangaUseCase;
     private readonly DeleteMangaUseCase _deleteMangaUseCase;
 
     public MangaController(GetAllMangaUseCase getAllMangaUseCase, 
     GetMangaByIdUseCase getMangaByIdUseCase, CreateMangaUseCase createMangaUseCase,
-    UpdateMangaUseCase updateMangaUseCase, DeleteMangaUseCase deleteMangaUseCase)
+    UpdateMangaStatusUseCase updateMangaUseCase, DeleteMangaUseCase deleteMangaUseCase)
     {
         _getAllMangaUseCase = getAllMangaUseCase;
         _getMangaByIdUseCase = getMangaByIdUseCase;

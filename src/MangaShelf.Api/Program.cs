@@ -1,13 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using MangaShelf.Api.Middleware;
-using MangaShelf.Application.Manga;
-using MangaShelf.Application.Manga.GetAll;
-using MangaShelf.Application.Manga.GetById;
-using MangaShelf.Application.Manga.Create;
-using MangaShelf.Application.Manga.UpdateStatus;
-using MangaShelf.Application.Manga.Delete;
-using MangaShelf.Infrastructure.Repositories;
-using MangaShelf.Infrastructure.Persistence;
+using MangaShelf.Application;
+using MangaShelf.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,20 +13,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<GetAllMangaUseCase>();
-builder.Services.AddScoped<GetMangaByIdUseCase>();
-builder.Services.AddScoped<CreateMangaUseCase>();
-builder.Services.AddScoped<UpdateMangaUseCase>();
-builder.Services.AddScoped<DeleteMangaUseCase>();
-
-builder.Services.AddScoped<IMangaRepository, EfCoreMangaRepository>();
-
-builder.Services.AddDbContext<MangaShelfDbContext>(options =>
-{
-    options.UseSqlite(
-        builder.Configuration.GetConnectionString("DefaultConnection")
-    );
-});
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
