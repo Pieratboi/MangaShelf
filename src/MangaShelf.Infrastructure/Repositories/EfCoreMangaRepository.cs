@@ -44,6 +44,11 @@ public class EfCoreMangaRepository : IMangaRepository
         return manga;
     }
 
+    public void Delete(Manga manga)
+    {
+        _dbContext.Manga.Remove(manga);
+    }
+
     public async Task SaveChangesAsync()
     {
         await _dbContext.SaveChangesAsync();

@@ -39,6 +39,11 @@ public class InMemoryMangaRepository : IMangaRepository
         return Task.FromResult(manga);
     }
 
+    public void Delete(Manga manga)
+    {
+        _manga.Remove(manga);
+    }
+
     public Task SaveChangesAsync()
     {
         return Task.CompletedTask;

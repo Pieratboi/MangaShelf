@@ -5,6 +5,7 @@ using MangaShelf.Application.Manga.GetAll;
 using MangaShelf.Application.Manga.GetById;
 using MangaShelf.Application.Manga.Create;
 using MangaShelf.Application.Manga.UpdateStatus;
+using MangaShelf.Application.Manga.Delete;
 using MangaShelf.Infrastructure.Repositories;
 using MangaShelf.Infrastructure.Persistence;
 
@@ -23,6 +24,7 @@ builder.Services.AddScoped<GetAllMangaUseCase>();
 builder.Services.AddScoped<GetMangaByIdUseCase>();
 builder.Services.AddScoped<CreateMangaUseCase>();
 builder.Services.AddScoped<UpdateMangaUseCase>();
+builder.Services.AddScoped<DeleteMangaUseCase>();
 
 builder.Services.AddScoped<IMangaRepository, EfCoreMangaRepository>();
 

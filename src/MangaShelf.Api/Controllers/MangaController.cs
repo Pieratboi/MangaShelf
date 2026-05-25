@@ -3,6 +3,7 @@ using MangaShelf.Application.Manga.GetAll;
 using MangaShelf.Application.Manga.GetById;
 using MangaShelf.Application.Manga.Create;
 using MangaShelf.Application.Manga.UpdateStatus;
+using MangaShelf.Application.Manga.Delete;
 
 namespace MangaShelf.Api.Controllers;
 
@@ -14,15 +15,17 @@ public class MangaController : ControllerBase
     private readonly GetMangaByIdUseCase _getMangaByIdUseCase;
     private readonly CreateMangaUseCase _createMangaUseCase;
     private readonly UpdateMangaUseCase _updateMangaUseCase;
+    private readonly DeleteMangaUseCase _deleteMangaUseCase;
 
     public MangaController(GetAllMangaUseCase getAllMangaUseCase, 
     GetMangaByIdUseCase getMangaByIdUseCase, CreateMangaUseCase createMangaUseCase,
-    UpdateMangaUseCase updateMangaUseCase)
+    UpdateMangaUseCase updateMangaUseCase, DeleteMangaUseCase deleteMangaUseCase)
     {
         _getAllMangaUseCase = getAllMangaUseCase;
         _getMangaByIdUseCase = getMangaByIdUseCase;
         _createMangaUseCase = createMangaUseCase;
         _updateMangaUseCase = updateMangaUseCase;
+        _deleteMangaUseCase = deleteMangaUseCase;
     }
 
     [HttpGet]
@@ -69,5 +72,17 @@ public class MangaController : ControllerBase
         }
 
         return Ok(manga);
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await _deleteMangaUseCase.ExecuteAsync(id);
+
+        if(!deleted)
+        {
+            return NotFound();
+        }
+        return NoContent();
     }
 }

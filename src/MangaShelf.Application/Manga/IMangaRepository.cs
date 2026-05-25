@@ -12,5 +12,7 @@ public interface IMangaRepository
 
     Task<MangaEntity> CreateAsync(MangaEntity manga);
 
+    void Delete(MangaEntity manga);
+
     Task SaveChangesAsync();
 }
