@@ -24,6 +24,7 @@ public class GetMangaByIdUseCase
         {
             Id = manga.Id,
             Title = manga.Title,
+            Description = manga.Description,
             Status = manga.Status.ToString()
         };
     }

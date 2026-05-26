@@ -28,6 +28,10 @@ public class MangaShelfDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(200);
 
+            entity.Property(m => m.Description)
+                .IsRequired()
+                .HasMaxLength(2000);
+
             entity.Property(m => m.Status)
                 .HasConversion<string>()
                 .IsRequired()
@@ -38,18 +42,21 @@ public class MangaShelfDbContext : DbContext
                 {
                     Id = 1,
                     Title = "Berserk",
+                    Description = "A dark fantasy manga following Guts, a lone swordsman marked by tragedy and revenge.",
                     Status = MangaStatus.Reading
                 },
                 new
                 {
                     Id = 2,
                     Title = "Vagabond",
+                    Description = "A historical samurai manga inspired by the life of Miyamoto Musashi.",
                     Status = MangaStatus.PlanToRead
                 },
                 new
                 {
                     Id = 3,
                     Title = "Vinland Saga",
+                    Description = "A historical manga about war, revenge, slavery, and the search for a peaceful land.",
                     Status = MangaStatus.Completed
                 }
             );

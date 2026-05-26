@@ -7,20 +7,24 @@ namespace MangaShelf.Domain.Entities;
 
 public class Manga
 {
+    private const int MaxDescriptionLength = 2000;
+
     public int Id {get; private set;}
     public string Title {get; private set;} = string.Empty;
+    public string Description {get; private set;} = string.Empty;
     public MangaStatus Status {get; private set;}
 
     private Manga()
     {
     }
 
-    public Manga(string title, MangaStatus status)
+    public Manga(string title, MangaStatus status, string? description = null)
     {
         SetTitle(title);
         SetStatus(status);
+        SetDescription(description);
     }
-    public Manga(int id, string title, MangaStatus status)
+    public Manga(int id, string title, MangaStatus status, string? description = null)
     {
         if (id <= 0)
         {
@@ -30,6 +34,7 @@ public class Manga
         Id = id;
         SetTitle(title);
         SetStatus(status);
+        SetDescription(description);
     }
 
     private void SetTitle(string title)
@@ -50,6 +55,24 @@ public class Manga
         }
 
         Status = status;
+    }
+
+    private void SetDescription(string? description)
+    {
+        if (string.IsNullOrWhiteSpace(description))
+        {
+            Description = string.Empty;
+            return;
+        }
+
+        var trimmedDescription = description.Trim();
+
+        if(trimmedDescription.Length > MaxDescriptionLength)
+        {
+            throw new DomainValidationException($"Manga description cannot be larger than {MaxDescriptionLength} characters.");
+        }
+
+        Description = trimmedDescription;
     }
 
     public void ChangeStatus(MangaStatus status)

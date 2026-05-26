@@ -28,7 +28,8 @@ public class CreateMangaUseCase
         var manga = new Domain.Entities.Manga
         (
             request.Title,
-            status
+            status,
+            request.Description
         );
 
         var createdManga = await _mangaRepository.CreateAsync(manga);
@@ -37,6 +38,7 @@ public class CreateMangaUseCase
         {
             Id = createdManga.Id,
             Title = createdManga.Title,
+            Description = createdManga.Description,
             Status = createdManga.Status.ToString()
         };
     }
