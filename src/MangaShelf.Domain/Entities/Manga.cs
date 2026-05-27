@@ -15,22 +15,22 @@ public class Manga
     public string Author {get; private set;} = string.Empty;
     public string Artist {get; private set;} = string.Empty;
     public string Description {get; private set;} = string.Empty;
-    public MangaStatus Status {get; private set;}
+    public PublicationStatus PublicationStatus {get; private set;}
 
     private Manga()
     {
     }
 
-    public Manga(string title, MangaStatus status, 
+    public Manga(string title, PublicationStatus publicationStatus, 
     string? author = null, string? artist = null, string? description = null)
     {
         SetTitle(title);
-        SetStatus(status);
+        SetPublicationStatus(publicationStatus);
         SetAuthor(author);
         SetArtist(artist);
         SetDescription(description);
     }
-    public Manga(int id, string title, MangaStatus status, 
+    public Manga(int id, string title, PublicationStatus publicationStatus, 
     string? author = null, string? artist = null, string? description = null)
     {
         if (id <= 0)
@@ -40,7 +40,7 @@ public class Manga
 
         Id = id;
         SetTitle(title);
-        SetStatus(status);
+        SetPublicationStatus(publicationStatus);
         SetAuthor(author);
         SetArtist(artist);
         SetDescription(description);
@@ -56,14 +56,14 @@ public class Manga
         Title = title.Trim();
     }
 
-    private void SetStatus(MangaStatus status)
+    private void SetPublicationStatus(PublicationStatus publicationStatus)
     {
-        if (!Enum.IsDefined(status))
+        if (!Enum.IsDefined(publicationStatus))
         {
             throw new DomainValidationException("Invalid manga status.");
         }
 
-        Status = status;
+        PublicationStatus = publicationStatus;
     }
 
     private void SetAuthor(string? author)
@@ -116,8 +116,28 @@ public class Manga
         Description = trimmedDescription;
     }
 
-    public void ChangeStatus(MangaStatus status)
+    public void ChangePublicationStatus(PublicationStatus publicationStatus)
     {
-        SetStatus(status);
+        SetPublicationStatus(publicationStatus);
+    }
+
+    public void ChangeTitle(string title)
+    {
+        SetTitle(title);
+    }
+
+    public void ChangeAuthor(string? author)
+    {
+        SetAuthor(author);
+    }
+
+    public void ChangeArtist(string? artist)
+    {
+        SetArtist(artist);
+    }
+
+    public void ChangeDescription(string? description)
+    {
+        SetDescription(description);
     }
 }

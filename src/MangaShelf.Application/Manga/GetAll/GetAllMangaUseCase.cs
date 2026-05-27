@@ -23,7 +23,7 @@ public class GetAllMangaUseCase
             Title = m.Title,
             Author = m.Author,
             Artist = m.Artist,
-            Status = m.Status.ToString()
+            PublicationStatus = m.PublicationStatus.ToString()
         }).ToList();
     }
 }

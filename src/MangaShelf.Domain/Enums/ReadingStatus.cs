@@ -1,6 +1,6 @@
 namespace MangaShelf.Domain.Enums;
 
-public enum MangaStatus
+public enum ReadingStatus
 {
     Reading = 1,
     PlanToRead = 2,

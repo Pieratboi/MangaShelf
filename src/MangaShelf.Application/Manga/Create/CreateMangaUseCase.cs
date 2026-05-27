@@ -19,16 +19,16 @@ public class CreateMangaUseCase
         {
             throw new ApplicationValidationException("Title is required.");
         }
-        if(!Enum.TryParse<MangaStatus>(request.Status, ignoreCase: true, out var status) 
-        || !Enum.IsDefined(status))
+        if(!Enum.TryParse<PublicationStatus>(request.PublicationStatus, ignoreCase: true, out var publicationStatus) 
+        || !Enum.IsDefined(publicationStatus))
         {
-            throw new ApplicationValidationException("Invalid Manga Status");
+            throw new ApplicationValidationException("Invalid manga publication status.");
         }
 
         var manga = new Domain.Entities.Manga
         (
             title: request.Title,
-            status: status,
+            publicationStatus: publicationStatus,
             author: request.Author,
             artist: request.Artist,
             description: request.Description
@@ -43,7 +43,7 @@ public class CreateMangaUseCase
             Author = createdManga.Author,
             Artist = createdManga.Artist,
             Description = createdManga.Description,
-            Status = createdManga.Status.ToString()
+            PublicationStatus = createdManga.PublicationStatus.ToString()
         };
     }
 }

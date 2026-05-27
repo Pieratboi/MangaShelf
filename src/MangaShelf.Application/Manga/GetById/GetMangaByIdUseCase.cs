@@ -27,7 +27,7 @@ public class GetMangaByIdUseCase
             Author = manga.Author,
             Artist = manga.Artist,
             Description = manga.Description,
-            Status = manga.Status.ToString()
+            PublicationStatus = manga.PublicationStatus.ToString()
         };
     }
 }

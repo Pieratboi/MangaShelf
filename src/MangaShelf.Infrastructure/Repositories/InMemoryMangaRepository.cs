@@ -11,7 +11,7 @@ public class InMemoryMangaRepository : IMangaRepository
         new(
             id: 1,
             title: "Berserk", 
-            status: MangaStatus.Reading,
+            publicationStatus: PublicationStatus.Hiatus,
             author: "Kentaro Miura",
             artist: "Kentaro Miura", 
             description: "A dark fantasy manga following Guts, a lone swordsman marked by tragedy and revenge."
@@ -19,7 +19,7 @@ public class InMemoryMangaRepository : IMangaRepository
         new(
             id: 2,
             title: "Vagabond", 
-            status: MangaStatus.PlanToRead, 
+            publicationStatus: PublicationStatus.Discontinued, 
             author: "Takehiko Inoue",
             artist: "Takehiko Inoue",
             description: "A historical samurai manga inspired by the life of Miyamoto Musashi."
@@ -27,7 +27,7 @@ public class InMemoryMangaRepository : IMangaRepository
         new(
             id: 3,
             title: "Vinland Saga",
-            status: MangaStatus.Completed,
+            publicationStatus: PublicationStatus.Completed,
             author: "Makoto Yukimura",
             artist: "Makoto Yukimura",
             description: "A historical manga about war, revenge, slavery, and the search for a peaceful land."

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MangaShelf.Application.Manga.GetAll;
 using MangaShelf.Application.Manga.GetById;
 using MangaShelf.Application.Manga.Create;
-using MangaShelf.Application.Manga.UpdateStatus;
+using MangaShelf.Application.Manga.UpdatePublicationStatus;
 using MangaShelf.Application.Manga.Delete;
 
 namespace MangaShelf.Api.Controllers;
@@ -14,17 +14,17 @@ public class MangaController : ControllerBase
     private readonly GetAllMangaUseCase _getAllMangaUseCase;
     private readonly GetMangaByIdUseCase _getMangaByIdUseCase;
     private readonly CreateMangaUseCase _createMangaUseCase;
-    private readonly UpdateMangaStatusUseCase _updateMangaUseCase;
+    private readonly UpdateMangaPublicationStatusUseCase _updateMangaPublicationStatusUseCase;
     private readonly DeleteMangaUseCase _deleteMangaUseCase;
 
     public MangaController(GetAllMangaUseCase getAllMangaUseCase, 
     GetMangaByIdUseCase getMangaByIdUseCase, CreateMangaUseCase createMangaUseCase,
-    UpdateMangaStatusUseCase updateMangaUseCase, DeleteMangaUseCase deleteMangaUseCase)
+    UpdateMangaPublicationStatusUseCase updateMangaPublicationStatusUseCase, DeleteMangaUseCase deleteMangaUseCase)
     {
         _getAllMangaUseCase = getAllMangaUseCase;
         _getMangaByIdUseCase = getMangaByIdUseCase;
         _createMangaUseCase = createMangaUseCase;
-        _updateMangaUseCase = updateMangaUseCase;
+        _updateMangaPublicationStatusUseCase = updateMangaPublicationStatusUseCase;
         _deleteMangaUseCase = deleteMangaUseCase;
     }
 
@@ -61,10 +61,11 @@ public class MangaController : ControllerBase
         );
     }
 
-    [HttpPatch("{id:int}/status")]
-    public async Task<IActionResult> UpdateStatus(int id, [FromBody] UpdateMangaStatusRequest request)
+    [HttpPatch("{id:int}/publication-status")]
+    public async Task<IActionResult> UpdatePublicationStatus(
+        int id, [FromBody] UpdateMangaPublicationStatusRequest request)
     {
-        var manga = await _updateMangaUseCase.ExecuteAsync(id, request);
+        var manga = await _updateMangaPublicationStatusUseCase.ExecuteAsync(id, request);
 
         if (manga is null)
         {

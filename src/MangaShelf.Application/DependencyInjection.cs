@@ -2,7 +2,7 @@ using MangaShelf.Application.Manga.Create;
 using MangaShelf.Application.Manga.Delete;
 using MangaShelf.Application.Manga.GetAll;
 using MangaShelf.Application.Manga.GetById;
-using MangaShelf.Application.Manga.UpdateStatus;
+using MangaShelf.Application.Manga.UpdatePublicationStatus;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MangaShelf.Application;
@@ -15,7 +15,7 @@ public static class DependencyInjection
         services.AddScoped<DeleteMangaUseCase>();
         services.AddScoped<GetAllMangaUseCase>();
         services.AddScoped<GetMangaByIdUseCase>();
-        services.AddScoped<UpdateMangaStatusUseCase>();
+        services.AddScoped<UpdateMangaPublicationStatusUseCase>();
 
         return services;
     }

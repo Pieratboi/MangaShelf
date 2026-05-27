@@ -40,7 +40,7 @@ public class MangaShelfDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(2000);
 
-            entity.Property(m => m.Status)
+            entity.Property(m => m.PublicationStatus)
                 .HasConversion<string>()
                 .IsRequired()
                 .HasMaxLength(50);
@@ -53,7 +53,7 @@ public class MangaShelfDbContext : DbContext
                     Author = "Kentaro Miura",
                     Artist = "Kentaro Miura",
                     Description = "A dark fantasy manga following Guts, a lone swordsman marked by tragedy and revenge.",
-                    Status = MangaStatus.Reading
+                    PublicationStatus = PublicationStatus.Hiatus
                 },
                 new
                 {
@@ -62,7 +62,7 @@ public class MangaShelfDbContext : DbContext
                     Author = "Takehiko Inoue",
                     Artist = "Takehiko Inoue",
                     Description = "A historical samurai manga inspired by the life of Miyamoto Musashi.",
-                    Status = MangaStatus.PlanToRead
+                    PublicationStatus = PublicationStatus.Discontinued
                 },
                 new
                 {
@@ -71,7 +71,7 @@ public class MangaShelfDbContext : DbContext
                     Author = "Makoto Yukimura",
                     Artist = "Makoto Yukimura",
                     Description = "A historical manga about war, revenge, slavery, and the search for a peaceful land.",
-                    Status = MangaStatus.Completed
+                    PublicationStatus = PublicationStatus.Completed
                 }
             );
         });
