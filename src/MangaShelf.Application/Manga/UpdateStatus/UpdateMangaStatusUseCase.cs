@@ -40,6 +40,8 @@ public class UpdateMangaStatusUseCase
         {
           Id = manga.Id,
           Title = manga.Title,
+          Author = manga.Author,
+          Artist = manga.Artist,
           Description = manga.Description,
           Status = manga.Status.ToString()  
         };

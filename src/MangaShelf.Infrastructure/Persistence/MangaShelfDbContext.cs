@@ -28,6 +28,14 @@ public class MangaShelfDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(200);
 
+            entity.Property(m => m.Author)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(m => m.Artist)
+                .IsRequired()
+                .HasMaxLength(100);
+
             entity.Property(m => m.Description)
                 .IsRequired()
                 .HasMaxLength(2000);
@@ -42,6 +50,8 @@ public class MangaShelfDbContext : DbContext
                 {
                     Id = 1,
                     Title = "Berserk",
+                    Author = "Kentaro Miura",
+                    Artist = "Kentaro Miura",
                     Description = "A dark fantasy manga following Guts, a lone swordsman marked by tragedy and revenge.",
                     Status = MangaStatus.Reading
                 },
@@ -49,6 +59,8 @@ public class MangaShelfDbContext : DbContext
                 {
                     Id = 2,
                     Title = "Vagabond",
+                    Author = "Takehiko Inoue",
+                    Artist = "Takehiko Inoue",
                     Description = "A historical samurai manga inspired by the life of Miyamoto Musashi.",
                     Status = MangaStatus.PlanToRead
                 },
@@ -56,6 +68,8 @@ public class MangaShelfDbContext : DbContext
                 {
                     Id = 3,
                     Title = "Vinland Saga",
+                    Author = "Makoto Yukimura",
+                    Artist = "Makoto Yukimura",
                     Description = "A historical manga about war, revenge, slavery, and the search for a peaceful land.",
                     Status = MangaStatus.Completed
                 }

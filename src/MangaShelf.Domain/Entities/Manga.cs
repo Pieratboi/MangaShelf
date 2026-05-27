@@ -8,9 +8,12 @@ namespace MangaShelf.Domain.Entities;
 public class Manga
 {
     private const int MaxDescriptionLength = 2000;
+    private const int MaxCreatorNameLength = 100;
 
     public int Id {get; private set;}
     public string Title {get; private set;} = string.Empty;
+    public string Author {get; private set;} = string.Empty;
+    public string Artist {get; private set;} = string.Empty;
     public string Description {get; private set;} = string.Empty;
     public MangaStatus Status {get; private set;}
 
@@ -18,13 +21,17 @@ public class Manga
     {
     }
 
-    public Manga(string title, MangaStatus status, string? description = null)
+    public Manga(string title, MangaStatus status, 
+    string? author = null, string? artist = null, string? description = null)
     {
         SetTitle(title);
         SetStatus(status);
+        SetAuthor(author);
+        SetArtist(artist);
         SetDescription(description);
     }
-    public Manga(int id, string title, MangaStatus status, string? description = null)
+    public Manga(int id, string title, MangaStatus status, 
+    string? author = null, string? artist = null, string? description = null)
     {
         if (id <= 0)
         {
@@ -34,6 +41,8 @@ public class Manga
         Id = id;
         SetTitle(title);
         SetStatus(status);
+        SetAuthor(author);
+        SetArtist(artist);
         SetDescription(description);
     }
 
@@ -55,6 +64,38 @@ public class Manga
         }
 
         Status = status;
+    }
+
+    private void SetAuthor(string? author)
+    {
+        if (string.IsNullOrWhiteSpace(author))
+        {
+            Author = string.Empty;
+            return;
+        }
+
+        if(author.Trim().Length > MaxCreatorNameLength)
+        {
+            throw new DomainValidationException($"Manga author cannot be longer than {MaxCreatorNameLength} characters.");
+        }
+
+        Author = author;
+    }
+
+    private void SetArtist(string? artist)
+    {
+        if (string.IsNullOrWhiteSpace(artist))
+        {
+            artist = string.Empty;
+            return;
+        }
+
+        if(artist.Trim().Length > MaxCreatorNameLength)
+        {
+            throw new DomainValidationException($"Manga artist cannot be longer than {MaxCreatorNameLength} characters.");
+        }
+
+        Artist = artist;
     }
 
     private void SetDescription(string? description)
