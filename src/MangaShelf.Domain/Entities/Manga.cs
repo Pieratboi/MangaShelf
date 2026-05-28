@@ -79,7 +79,7 @@ public class Manga
             throw new DomainValidationException($"Manga author cannot be longer than {MaxCreatorNameLength} characters.");
         }
 
-        Author = author;
+        Author = author.Trim();
     }
 
     private void SetArtist(string? artist)
@@ -95,7 +95,7 @@ public class Manga
             throw new DomainValidationException($"Manga artist cannot be longer than {MaxCreatorNameLength} characters.");
         }
 
-        Artist = artist;
+        Artist = artist.Trim();
     }
 
     private void SetDescription(string? description)
