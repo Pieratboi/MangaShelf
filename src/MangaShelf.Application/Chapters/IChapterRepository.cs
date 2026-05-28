@@ -4,6 +4,8 @@ namespace MangaShelf.Application.Chapters;
 
 public interface IChapterRepository
 {
+    Task<ChapterEntity?> GetByIdAsync(int id);
+
     Task<List<ChapterEntity>> GetByMangaIdAsync(int mangaId);
 
     Task<bool> ExistsByMangaIdAndNumberAsync(int mangaId, int number);

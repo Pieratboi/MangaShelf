@@ -14,6 +14,13 @@ public class EfCoreChapterRepository : IChapterRepository
         _dbContext = dbContext;
     }
 
+    public async Task<Chapter?> GetByIdAsync(int id)
+    {
+        return await _dbContext.Chapters
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Id == id);
+    }
+
     public async Task<List<Chapter>> GetByMangaIdAsync(int mangaId)
     {
         return await _dbContext.Chapters

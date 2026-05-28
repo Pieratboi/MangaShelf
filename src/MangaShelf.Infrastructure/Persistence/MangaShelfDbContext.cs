@@ -13,6 +13,8 @@ public class MangaShelfDbContext : DbContext
 
     public DbSet<Manga> Manga => Set<Manga>();
     public DbSet<Chapter> Chapters => Set<Chapter>();
+    public DbSet<Scanlator> Scanlators => Set<Scanlator>();
+    public DbSet<ChapterRelease> ChapterReleases => Set<ChapterRelease>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -103,6 +105,64 @@ public class MangaShelfDbContext : DbContext
                 .WithMany()
                 .HasForeignKey(c => c.MangaId)
                 .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<Scanlator>(entity =>
+        {
+            entity.ToTable("Scanlators");
+
+            entity.HasKey(s => s.Id);
+
+            entity.Property(s => s.Id)
+                .ValueGeneratedOnAdd();
+            
+            entity.Property(s => s.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+            
+            entity.Property(s => s.WebsiteUrl)
+                .IsRequired()
+                .HasMaxLength(400);
+            
+            entity.HasIndex(s => s.Name)
+                .IsUnique();
+        });
+
+        modelBuilder.Entity<ChapterRelease>(entity =>
+        {
+            entity.ToTable("ChapterReleases");
+
+            entity.HasKey(r => r.Id);
+
+            entity.Property(r => r.Id)
+                .ValueGeneratedOnAdd();
+            
+            entity.Property(r => r.ChapterId)
+                .IsRequired();
+            
+            entity.Property(r => r.ScanlatorId)
+                .IsRequired();
+            
+            entity.Property(r => r.SourceUrl)
+                .IsRequired()
+                .HasMaxLength(1000);
+            
+            entity.Property(r => r.Language)
+                .IsRequired()
+                .HasMaxLength(20);
+            
+            entity.HasIndex(r => new {r.ChapterId, r.ScanlatorId})
+                .IsUnique();
+            
+            entity.HasOne(r => r.Chapter)
+                .WithMany()
+                .HasForeignKey(r => r.ChapterId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            entity.HasOne(r => r.Scanlator)
+                .WithMany()
+                .HasForeignKey(r => r.ScanlatorId)
+                .OnDelete(DeleteBehavior.Restrict);
         });
     }
 }
