@@ -12,6 +12,7 @@ public class MangaShelfDbContext : DbContext
     }
 
     public DbSet<Manga> Manga => Set<Manga>();
+    public DbSet<Chapter> Chapters => Set<Chapter>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -74,6 +75,34 @@ public class MangaShelfDbContext : DbContext
                     PublicationStatus = PublicationStatus.Completed
                 }
             );
+        });
+
+        modelBuilder.Entity<Chapter>(entity =>
+        {
+            entity.ToTable("Chapters");
+
+            entity.HasKey(c => c.Id);
+
+            entity.Property(c => c.Id)
+                .ValueGeneratedOnAdd();
+            
+            entity.Property(c => c.MangaId)
+                .IsRequired();
+            
+            entity.Property(c => c.Number)
+                .IsRequired();
+
+            entity.Property(c => c.Title)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.HasIndex(c => new {c.MangaId, c.Number})
+                .IsUnique();
+
+            entity.HasOne(c => c.Manga)
+                .WithMany()
+                .HasForeignKey(c => c.MangaId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
     }
 }

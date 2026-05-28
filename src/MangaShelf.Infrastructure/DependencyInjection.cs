@@ -1,4 +1,5 @@
 using MangaShelf.Application.Manga;
+using MangaShelf.Application.Chapters;
 using MangaShelf.Infrastructure.Persistence;
 using MangaShelf.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IMangaRepository, EfCoreMangaRepository>();
+        services.AddScoped<IChapterRepository, EfCoreChapterRepository>();
 
         return services;
     }
