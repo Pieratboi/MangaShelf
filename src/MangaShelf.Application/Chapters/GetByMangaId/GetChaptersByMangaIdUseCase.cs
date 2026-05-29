@@ -2,14 +2,14 @@ using MangaShelf.Application.Common.Exceptions;
 using MangaShelf.Application.Manga;
 using MangaShelf.Domain.Entities;
 
-namespace MangaShelf.Application.Chapters.GetByManga;
+namespace MangaShelf.Application.Chapters.GetByMangaId;
 
-public class GetChaptersByMangaUseCase
+public class GetChaptersByMangaIdUseCase
 {
     private readonly IMangaRepository _mangaRepository;
     private readonly IChapterRepository _chapterRepository;
 
-    public GetChaptersByMangaUseCase(IMangaRepository mangaRepository, IChapterRepository chapterRepository)
+    public GetChaptersByMangaIdUseCase(IMangaRepository mangaRepository, IChapterRepository chapterRepository)
     {
         _mangaRepository = mangaRepository;
         _chapterRepository = chapterRepository;

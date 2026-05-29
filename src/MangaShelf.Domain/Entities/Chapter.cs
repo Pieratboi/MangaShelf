@@ -72,4 +72,14 @@ public class Chapter
 
         Title = title.Trim();
     }
+
+    public void ChangeTitle(string? title)
+    {
+        SetTitle(title);
+    }
+
+    public void ChangeNumber(int number)
+    {
+        SetNumber(number);
+    }
 }

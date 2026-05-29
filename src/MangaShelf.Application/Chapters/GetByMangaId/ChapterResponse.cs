@@ -1,4 +1,4 @@
-namespace MangaShelf.Application.Chapters.GetByManga;
+namespace MangaShelf.Application.Chapters.GetByMangaId;
 
 public class ChapterResponse
 {

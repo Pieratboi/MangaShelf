@@ -14,6 +14,20 @@ public class EfCoreChapterReleaseRepository : IChapterReleaseRepository
         _dbContext = dbContext;
     }
 
+    public async Task<ChapterRelease?> GetByIdAsync(int id)
+    {
+        return await _dbContext.ChapterReleases
+            .AsNoTracking()
+            .Include(r => r.Scanlator)
+            .FirstOrDefaultAsync(r => r.Id == id);
+    }
+
+    public async Task<ChapterRelease?> GetByIdForUpdateAsync(int id)
+    {
+        return await _dbContext.ChapterReleases
+            .FirstOrDefaultAsync(r => r.Id == id);
+    }
+
     public async Task<List<ChapterRelease>> GetByChapterIdAsync(int chapterId)
     {
         return await _dbContext.ChapterReleases
@@ -31,6 +45,18 @@ public class EfCoreChapterReleaseRepository : IChapterReleaseRepository
             .AnyAsync(r => r.ChapterId == chapterId && r.ScanlatorId == scanlatorId);
     }
 
+    public async Task<bool> ExistsByChapterIdAndScanlatorIdExceptReleaseAsync(
+        int chapterId,
+        int scanlatorId,
+        int releaseId)
+    {
+        return await _dbContext.ChapterReleases
+            .AsNoTracking()
+            .AnyAsync(r => r.ChapterId == chapterId
+                && r.ScanlatorId == scanlatorId
+                && r.Id != releaseId);
+    }
+
     public async Task<ChapterRelease> CreateAsync(ChapterRelease chapterRelease)
     {
         _dbContext.ChapterReleases.Add(chapterRelease);
@@ -42,5 +68,15 @@ public class EfCoreChapterReleaseRepository : IChapterReleaseRepository
             .LoadAsync();
 
         return chapterRelease;
+    }
+
+    public void Delete(ChapterRelease chapterRelease)
+    {
+        _dbContext.ChapterReleases.Remove(chapterRelease);
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await _dbContext.SaveChangesAsync();
     }
 }

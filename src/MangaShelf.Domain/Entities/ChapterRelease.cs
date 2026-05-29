@@ -83,4 +83,19 @@ public class ChapterRelease
 
         Language = language.Trim();
     }
+
+    public void ChangeScanlatorId(int scanlatorId)
+    {
+        SetScanlatorId(scanlatorId);
+    }
+
+    public void ChangeSourceUrl(string? sourceUrl)
+    {
+        SetSourceUrl(sourceUrl);
+    }
+
+    public void ChangeLanguage(string? language)
+    {
+        SetLanguage(language);
+    }
 }

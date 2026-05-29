@@ -21,6 +21,12 @@ public class EfCoreChapterRepository : IChapterRepository
             .FirstOrDefaultAsync(c => c.Id == id);
     }
 
+    public async Task<Chapter?> GetByIdForUpdateAsync(int id)
+    {
+        return await _dbContext.Chapters
+            .FirstOrDefaultAsync(c => c.Id == id);
+    }
+
     public async Task<List<Chapter>> GetByMangaIdAsync(int mangaId)
     {
         return await _dbContext.Chapters
@@ -37,6 +43,18 @@ public class EfCoreChapterRepository : IChapterRepository
             .AnyAsync(c => c.MangaId == mangaId && c.Number == number);
     }
 
+    public async Task<bool> ExistsByMangaIdAndNumberExceptChapterAsync(
+        int mangaId,
+        int number,
+        int chapterId)
+    {
+        return await _dbContext.Chapters
+            .AsNoTracking()
+            .AnyAsync(c => c.MangaId == mangaId 
+                && c.Number == number
+                && c.Id != chapterId);
+    }
+
     public async Task<Chapter> CreateAsync(Chapter chapter)
     {
         _dbContext.Chapters.Add(chapter);
@@ -44,5 +62,15 @@ public class EfCoreChapterRepository : IChapterRepository
         await _dbContext.SaveChangesAsync();
 
         return chapter;
+    }
+
+    public void Delete(Chapter chapter)
+    {
+        _dbContext.Chapters.Remove(chapter);
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await _dbContext.SaveChangesAsync();
     }
 }
