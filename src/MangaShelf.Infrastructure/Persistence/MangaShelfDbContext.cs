@@ -15,6 +15,7 @@ public class MangaShelfDbContext : DbContext
     public DbSet<Chapter> Chapters => Set<Chapter>();
     public DbSet<Scanlator> Scanlators => Set<Scanlator>();
     public DbSet<ChapterRelease> ChapterReleases => Set<ChapterRelease>();
+    public DbSet<ChapterPage> ChapterPages => Set<ChapterPage>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -163,6 +164,34 @@ public class MangaShelfDbContext : DbContext
                 .WithMany()
                 .HasForeignKey(r => r.ScanlatorId)
                 .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<ChapterPage>(entity =>
+        {
+            entity.ToTable("ChapterPages");
+
+            entity.HasKey(p => p.Id);
+
+            entity.Property(p => p.Id)
+                .ValueGeneratedOnAdd();
+
+            entity.Property(p => p.ChapterReleaseId)
+                .IsRequired();
+            
+            entity.Property(p => p.PageNumber)
+                .IsRequired();
+            
+            entity.Property(p => p.ImageUrl)
+                .IsRequired()
+                .HasMaxLength(1000);
+            
+            entity.HasIndex(p => new {p.ChapterReleaseId, p.PageNumber})
+                .IsUnique();
+            
+            entity.HasOne(p => p.ChapterRelease)
+                .WithMany()
+                .HasForeignKey(p => p.ChapterReleaseId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
     }
 }
