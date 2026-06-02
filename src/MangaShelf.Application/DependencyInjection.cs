@@ -18,6 +18,9 @@ using MangaShelf.Application.ChapterReleases.Update;
 using MangaShelf.Application.ChapterReleases.Delete;
 using MangaShelf.Application.ChapterPages.Create;
 using MangaShelf.Application.ChapterPages.GetByRelease;
+using MangaShelf.Application.ChapterPages.GetById;
+using MangaShelf.Application.ChapterPages.Update;
+using MangaShelf.Application.ChapterPages.Delete;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MangaShelf.Application;
@@ -50,6 +53,9 @@ public static class DependencyInjection
 
         services.AddScoped<CreateChapterPageUseCase>();
         services.AddScoped<GetChapterPagesByReleaseUseCase>();
+        services.AddScoped<GetChapterPageByIdUseCase>();
+        services.AddScoped<UpdateChapterPageUseCase>();
+        services.AddScoped<DeleteChapterPageUseCase>();
 
         return services;
     }
